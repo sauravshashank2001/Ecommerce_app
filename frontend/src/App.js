@@ -1,10 +1,10 @@
 import "./App.css";
 import { useEffect, useState } from "react";
-import Header from "./component/layout/Header/Header.js";
+import Header from "./component/layout/Header/Header.js"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import WebFont from "webfontloader";
 import React from "react";
-import Footer from "./component/layout/Footer/Footer";
+import Footer from './component/layout/Footer/Footer';
 import Home from "./component/Home/Home";
 import ProductDetails from "./component/Product/ProductDetails";
 import Products from "./component/Product/Products";
@@ -12,7 +12,7 @@ import Search from "./component/Product/Search";
 import LoginSignUp from "./component/User/LoginSignUp";
 import store from "./store";
 import { loadUser } from "./actions/userAction";
-import UserOptions from "./component/layout/Header/UserOptions";
+import UserOptions from "./component/layout/Header/UserOption.js"
 import { useSelector } from "react-redux";
 import Profile from "./component/User/Profile";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
@@ -39,17 +39,27 @@ import ProcessOrder from "./component/Admin/ProcessOrder";
 import UsersList from "./component/Admin/UsersList";
 import UpdateUser from "./component/Admin/UpdateUser";
 import ProductReviews from "./component/Admin/ProductReviews";
-import Contact from "./component/layout/Contact/Contact";
-import About from "./component/layout/About/About";
-import NotFound from "./component/layout/Not Found/NotFound";
+import About from './component/layout/About/About'; 
+import Contact from "./component/layout/Contact/Contact.js"
+import NotFound from "./component/layout/NotFound/NotFound.js"
+
+export const configLink = {
+  endpoint: `http://localhost:4000`,
+};
+
 
 function App() {
+
+ 
+  
   const { isAuthenticated, user } = useSelector((state) => state.user);
 
   const [stripeApiKey, setStripeApiKey] = useState("");
 
   async function getStripeApiKey() {
-    const { data } = await axios.get("/api/v1/stripeapikey");
+    const { data } = await axios.get(`${configLink.endpoint}/api/v1/stripeapikey`,{
+      withCredentials: true,
+    });
 
     setStripeApiKey(data.stripeApiKey);
   }
